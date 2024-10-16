@@ -47,11 +47,26 @@ app.get('/providers', (req,res) => {
 });
 
 // Question 3 goes here
-
+app.get('/patients/first-name/:name', (req, res) => {
+    const name = req.params.name;
+    db.query('SELECT * FROM patients WHERE first_name = ?', [name], (err, results) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.json(results);
+    });
+  });
 
 // Question 4 goes here
-
-
+app.get('/providers/specialty/:specialty', (req, res) => {
+    const specialty = req.params.specialty;
+    db.query('SELECT * FROM providers WHERE provider_specialty = ?', [specialty], (err, results) => {
+      if (err) {
+        return res.status(500).send(err);
+      }
+      res.json(results);
+    });
+  });
 
 // listen to the server
 const PORT = 3000
